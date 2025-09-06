@@ -1,0 +1,6 @@
+name: Patuxmix
+version: '1.0-SNAPSHOT'
+main: com.mixay.patuxmix.Patuxmix
+api-version: '1.16'
+depend: [NBTAPI]
+
