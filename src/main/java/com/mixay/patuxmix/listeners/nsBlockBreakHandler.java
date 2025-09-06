@@ -25,10 +25,14 @@ public class nsBlockBreakHandler implements Listener {
             // ломаем блоки 3х3
             Block center = e.getBlock().getRelative(BlockFace.SELF);
             ItemMeta meta = breakitem.getItemMeta();
-            Bukkit.getLogger().info(MessageFormat.format("changing durability, current {0}, damage {1}", ((Damageable) meta).getDamage(), (blockmethods.breakBlocksInRadius(center, 2, breakitem, false))));
-            ((Damageable) meta).setDamage(((Damageable) meta).getDamage() + blockmethods.breakBlocksInRadius(center, 2, breakitem, true));
+            Bukkit.getLogger().info(MessageFormat.format("changing durability, current {0}, damage {1}", breakitem.getDurability(), (blockmethods.breakBlocksInRadius(center, 2, breakitem, false))));
+            ((Damageable) meta).setDamage(((Damageable) meta).getDamage() + blockmethods.breakBlocksInRadius(center, 10, breakitem, true));
             breakitem.setItemMeta(meta);
-            p.getInventory().setItemInMainHand(breakitem);
+            if (breakitem.getDurability() > breakitem.getType().getMaxDurability()) {
+                p.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
+            } else {
+                p.getInventory().setItemInMainHand(breakitem);
+            }
         }
     }
 }

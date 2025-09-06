@@ -6,6 +6,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.HashSet;
 import java.util.Random;
 
 public class blockmethods {
@@ -29,16 +30,19 @@ public class blockmethods {
     }
     public static short breakBlocksInRadius (Block center, Integer radius, ItemStack tool, boolean breakblocks) {
         short durabilityloss = 0;
+        HashSet<Material> forbiddenBlocks = new HashSet<>();
+        forbiddenBlocks.add(Material.BEDROCK);
+        forbiddenBlocks.add(Material.BARRIER);
         for(int x = -radius; x <= radius; x++) {
             for(int y = -radius; y <= radius; y++) {
                 for(int z = -radius; z <= radius; z++) {
                     Block b = center.getRelative(x, y, z);
-                    if(center.getLocation().distance(b.getLocation()) <= radius) {
-                        if (!b.getType().isAir()) {
-                            if (breakblocks) b.breakNaturally(tool, true);
+                        if (!b.getType().isAir() && b.isPreferredTool(tool) && !forbiddenBlocks.contains(b.getType())) {
+                            if (breakblocks) {
+                                b.breakNaturally(tool, true);
+                            }
                             durabilityloss++;
                         }
-                    }
                 }
             }
         }

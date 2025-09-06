@@ -3,4 +3,7 @@ version: '${version}'
 main: com.mixay.patuxmix.Patuxmix
 api-version: '1.16'
 depend: [NBTAPI]
+commands:
+  getshovel:
+    description: Get netherite shoveel command
 
