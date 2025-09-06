@@ -2,6 +2,7 @@ package com.mixay.patuxmix.listeners;
 
 import com.mixay.patuxmix.util.*;
 
+import de.tr7zw.nbtapi.NBT;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -21,14 +22,16 @@ public class nsBlockBreakHandler implements Listener {
     public void onNSBlockBreak (BlockBreakEvent e) {
         Player p = e.getPlayer();
         ItemStack breakitem = p.getInventory().getItemInMainHand();
-        if (breakitem.getType() == Material.NETHERITE_SHOVEL) {
+        Block b = e.getBlock();
+        int breakradius = NBT.get(breakitem, nbt -> (Integer) nbt.getOrDefault("NSradius", 0));
+        if (breakradius != 0 && breakitem.getType() == Material.NETHERITE_SHOVEL && b.isValidTool(breakitem) && b.isPreferredTool(breakitem)) {
             // ломаем блоки 3х3
             Block center = e.getBlock().getRelative(BlockFace.SELF);
             ItemMeta meta = breakitem.getItemMeta();
-            Bukkit.getLogger().info(MessageFormat.format("changing durability, current {0}, damage {1}", breakitem.getDurability(), (blockmethods.breakBlocksInRadius(center, 2, breakitem, false))));
-            ((Damageable) meta).setDamage(((Damageable) meta).getDamage() + blockmethods.breakBlocksInRadius(center, 10, breakitem, true));
+            //Bukkit.getLogger().info(MessageFormat.format("changing durability, current {0}, damage {1}", ((Damageable) meta).getDamage(), (blockmethods.breakBlocksInRadius(center, 2, breakitem, false))));
+            ((Damageable) meta).setDamage(((Damageable) meta).getDamage() + blockmethods.breakBlocksInRadius(center, breakradius, breakitem));
             breakitem.setItemMeta(meta);
-            if (breakitem.getDurability() > breakitem.getType().getMaxDurability()) {
+            if (((Damageable) meta).getDamage() > breakitem.getType().getMaxDurability()) {
                 p.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
             } else {
                 p.getInventory().setItemInMainHand(breakitem);

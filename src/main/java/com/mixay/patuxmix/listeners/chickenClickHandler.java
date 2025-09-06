@@ -2,17 +2,14 @@ package com.mixay.patuxmix.listeners;
 
 import com.mixay.patuxmix.util.*;
 
+import net.kyori.adventure.text.Component;
 import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Chicken;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
 import java.text.MessageFormat;
@@ -31,18 +28,18 @@ public class chickenClickHandler implements Listener {
                 // знаем что обьект уже существует, проверяем скока там уже было кликнуто
                 if (dataManager.getClicks(chicken.getUniqueId()) > 4) {
                     // обрабатываем взрыв и замену блоков
-                    e.getPlayer().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.RED + "Бум!"));
+                    e.getPlayer().sendActionBar(Component.text(ChatColor.RED + "Бум!"));
                     dataManager.removeChicken(chicken.getUniqueId());
                     chicken.getWorld().createExplosion(chicken, 3F, false, true);
                     blockmethods.setFlowersInRadius(chicken.getLocation(), 4);
                     chicken.remove();
                 } else {
                     String message = MessageFormat.format("Нажали: {0}/5", dataManager.getClicks(chicken.getUniqueId()));
-                    e.getPlayer().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.GREEN + message));
+                    e.getPlayer().sendActionBar(Component.text(ChatColor.GREEN + message));
                 }
             } else {
                 String message = MessageFormat.format("Нажали: {0}/5", dataManager.getClicks(chicken.getUniqueId()));
-                e.getPlayer().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.GREEN + message));
+                e.getPlayer().sendActionBar(Component.text(ChatColor.GREEN + message));
             }
         }
     }
