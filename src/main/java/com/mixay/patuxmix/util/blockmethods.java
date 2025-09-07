@@ -5,8 +5,6 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.inventory.ItemStack;
-
-import java.util.HashSet;
 import java.util.Random;
 
 public class blockmethods {

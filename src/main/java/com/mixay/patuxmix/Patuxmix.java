@@ -4,11 +4,9 @@ import com.mixay.patuxmix.commands.getNScommand;
 import com.mixay.patuxmix.listeners.*;
 import com.mixay.patuxmix.util.*;
 
-import de.tr7zw.nbtapi.NBT;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.java.JavaPlugin;
 
