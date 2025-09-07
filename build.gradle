@@ -21,14 +21,12 @@ repositories {
         url = uri("https://repo.codemc.io/repository/maven-public/")
     }
 }
-
 dependencies {
 compileOnly "com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT"
     compileOnly("de.tr7zw:item-nbt-api-plugin:2.15.2")
     implementation("net.jodah:expiringmap:0.5.11")
 }
 shadowJar {
-    archiveClassifier.set("") // чтобы итоговый jar был без "-all"
     relocate "net.jodah.expiringmap", "com.mixay.patuxmix.libs.expiringmap"
 }
 def targetJavaVersion = 8
