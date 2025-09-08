@@ -1,9 +1,11 @@
 package com.mixay.patuxmix.listeners;
 
+import com.mixay.patuxmix.Patuxmix;
 import de.tr7zw.nbtapi.NBT;
 import net.kyori.adventure.text.Component;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,10 +14,17 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
+import java.text.MessageFormat;
 import java.util.Arrays;
 
-public class enderPearlHandler implements Listener {
+public class EnderPearlHandler implements Listener {
     //Logger logger = Bukkit.getLogger();
+    Patuxmix plugin;
+    FileConfiguration config;
+    public EnderPearlHandler (Patuxmix pl) {
+        this.plugin = pl;
+        this.config = plugin.getConfig();
+    }
     @EventHandler (ignoreCancelled = true)
     public void onPearlBlockSet (PlayerInteractEvent e) {
         if (e.getHand() == EquipmentSlot.HAND && e.getItem() != null && e.getAction().equals(Action.LEFT_CLICK_BLOCK) && e.getClickedBlock()!=null) {
@@ -62,9 +71,19 @@ public class enderPearlHandler implements Listener {
                         Integer z = NBT.get(pearl, nbt -> (Integer) nbt.getInteger("patuxmix:Ztploc"));
                         World w = Bukkit.getWorld((String) NBT.get(pearl, nbt -> (String) nbt.getString("patuxmix:Wtploc")));
                         Location tploc = new Location(w, x, y, z);
-                        p.teleport(tploc);
-                        p.getInventory().remove(pearl);
-                        p.sendMessage(ChatColor.GREEN + "Вы были успешно телепортированы по сохраненной локации!");
+                        double distance;
+                        try {
+                            distance = tploc.distance(p.getLocation());
+                            if (distance <= config.getInt("smart-pearl.maxdistance")) {
+                                p.teleport(tploc);
+                                p.getInventory().remove(pearl);
+                                p.sendMessage(ChatColor.GREEN + "Вы были успешно телепортированы по сохраненной локации!");
+                            } else {
+                                p.sendMessage(ChatColor.RED + MessageFormat.format("Расстояние до сохраненной точки больше ({0}), чем максимальное ({1}), телепортация невозможна!", distance, config.getInt("smart-pearl.maxdistance")));
+                            }
+                        } catch (IllegalArgumentException error) {
+                            p.sendMessage(ChatColor.RED + "Вы находитесь в другом мире, нельзя телепортироватся между мирами!");
+                        }
                     }
                     e.setCancelled(true);
                 }

@@ -1,0 +1,6 @@
+super-shovel:
+  maxradius: 9
+  cooldown: 5 # in seconds
+smart-pearl:
+  cooldown: 5 # in seconds, needs implementation
+  maxdistance: 100 # in blocks

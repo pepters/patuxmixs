@@ -15,30 +15,30 @@ import org.bukkit.inventory.EquipmentSlot;
 import java.text.MessageFormat;
 import java.util.logging.Logger;
 
-public class chickenClickHandler implements Listener {
+public class ChickenClickHandler implements Listener {
     Logger logger = Bukkit.getLogger();
     @EventHandler (ignoreCancelled = true)
     public void onChickenClick (PlayerInteractAtEntityEvent e) {
         if (e.getRightClicked() instanceof Chicken && e.getHand().equals(EquipmentSlot.HAND)) {
             // уверены что клик на курицу и событие от главной руки
             Entity chicken = e.getRightClicked();
-            boolean usl = dataManager.increaseChicken(chicken.getUniqueId());
-            logger.info(MessageFormat.format("Получен правый клик по курице от игрока {0}, какой по счету: {1}", e.getPlayer().getName(), dataManager.getClicks(chicken.getUniqueId())));
+            boolean usl = DataManager.increaseChicken(chicken.getUniqueId());
+            logger.info(MessageFormat.format("Получен правый клик по курице от игрока {0}, какой по счету: {1}", e.getPlayer().getName(), DataManager.getClicks(chicken.getUniqueId())));
             if (!usl) {
                 // знаем что обьект уже существует, проверяем скока там уже было кликнуто
-                if (dataManager.getClicks(chicken.getUniqueId()) > 4) {
+                if (DataManager.getClicks(chicken.getUniqueId()) > 4) {
                     // обрабатываем взрыв и замену блоков
                     e.getPlayer().sendActionBar(Component.text(ChatColor.RED + "Бум!"));
-                    dataManager.removeChicken(chicken.getUniqueId());
+                    DataManager.removeChicken(chicken.getUniqueId());
                     chicken.getWorld().createExplosion(chicken, 3F, false, true);
-                    blockmethods.setFlowersInRadius(chicken.getLocation(), 4);
+                    BlockMethods.setFlowersInRadius(chicken.getLocation(), 4);
                     chicken.remove();
                 } else {
-                    String message = MessageFormat.format("Нажали: {0}/5", dataManager.getClicks(chicken.getUniqueId()));
+                    String message = MessageFormat.format("Нажали: {0}/5", DataManager.getClicks(chicken.getUniqueId()));
                     e.getPlayer().sendActionBar(Component.text(ChatColor.GREEN + message));
                 }
             } else {
-                String message = MessageFormat.format("Нажали: {0}/5", dataManager.getClicks(chicken.getUniqueId()));
+                String message = MessageFormat.format("Нажали: {0}/5", DataManager.getClicks(chicken.getUniqueId()));
                 e.getPlayer().sendActionBar(Component.text(ChatColor.GREEN + message));
             }
         }

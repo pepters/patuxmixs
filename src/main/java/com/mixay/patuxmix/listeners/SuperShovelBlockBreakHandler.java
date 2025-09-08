@@ -13,7 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class nsBlockBreakHandler implements Listener {
+public class SuperShovelBlockBreakHandler implements Listener {
     @EventHandler (ignoreCancelled = true)
     public void onNSBlockBreak (BlockBreakEvent e) {
         Player p = e.getPlayer();
@@ -26,7 +26,7 @@ public class nsBlockBreakHandler implements Listener {
                 Block center = e.getBlock().getRelative(BlockFace.SELF);
                 ItemMeta meta = breakitem.getItemMeta();
                 //Bukkit.getLogger().info(MessageFormat.format("changing durability, current {0}, damage {1}", ((Damageable) meta).getDamage(), (blockmethods.breakBlocksInRadius(center, 2, breakitem, false))));
-                ((Damageable) meta).setDamage(((Damageable) meta).getDamage() + blockmethods.breakBlocksInRadius(center, breakradius, breakitem));
+                ((Damageable) meta).setDamage(((Damageable) meta).getDamage() + BlockMethods.breakBlocksInRadius(center, breakradius, breakitem));
                 breakitem.setItemMeta(meta);
                 if (((Damageable) meta).getDamage() > breakitem.getType().getMaxDurability()) {
                     p.getInventory().setItemInMainHand(new ItemStack(Material.AIR));

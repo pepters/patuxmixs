@@ -8,4 +8,8 @@ commands:
     description: Get netherite shovel command
   getpearl:
     description: Get unique TP pearl command
-
+permissions:
+  patuxmix.getshovel:
+    description: permission for reciving super shovel.
+  patuxmix.getpearl:
+    description: permission for reciving smart pearl.

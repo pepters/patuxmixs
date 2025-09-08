@@ -4,7 +4,7 @@ package com.mixay.patuxmix.util;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class dataManager {
+public class DataManager {
     protected static HashMap <UUID, Integer> clickedChickens = new HashMap<>();
     public static boolean increaseChicken (UUID chickenuuid) {
         if (!alreadyAdded(chickenuuid)) {

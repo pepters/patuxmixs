@@ -1,7 +1,7 @@
 package com.mixay.patuxmix;
 
-import com.mixay.patuxmix.commands.getNScommand;
-import com.mixay.patuxmix.commands.getPearlCommand;
+import com.mixay.patuxmix.commands.GetSuperShovel;
+import com.mixay.patuxmix.commands.GetSmartPearl;
 import com.mixay.patuxmix.listeners.*;
 import com.mixay.patuxmix.util.*;
 
@@ -16,18 +16,18 @@ public final class Patuxmix extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
-        Bukkit.getPluginManager().registerEvents(new chickenClickHandler(), this);
-        Bukkit.getPluginManager().registerEvents(new nsBlockBreakHandler(), this);
-        Bukkit.getPluginManager().registerEvents(new enderPearlHandler(), this);
-        Bukkit.getPluginCommand("getshovel").setExecutor(new getNScommand());
-        Bukkit.getPluginCommand("getpearl").setExecutor(new getPearlCommand());
+        saveDefaultConfig();
+        Bukkit.getPluginManager().registerEvents(new ChickenClickHandler(), this);
+        Bukkit.getPluginManager().registerEvents(new SuperShovelBlockBreakHandler(), this);
+        Bukkit.getPluginManager().registerEvents(new EnderPearlHandler(this), this);
+        Bukkit.getPluginCommand("getshovel").setExecutor(new GetSuperShovel(this));
+        Bukkit.getPluginCommand("getpearl").setExecutor(new GetSmartPearl(this));
 
-        ShapedRecipe NSpickrecipie = new ShapedRecipe(new NamespacedKey(this, "NSpickaxer2"), itemmethods.getPickaxeStack(2));
+        ShapedRecipe NSpickrecipie = new ShapedRecipe(new NamespacedKey(this, "NSpickaxer2"), ItemMethods.getPickaxeStack(2));
         NSpickrecipie.shape(" N ", " S ", " S ");
         NSpickrecipie.setIngredient('N', Material.NETHERITE_BLOCK);
         NSpickrecipie.setIngredient('S', Material.STICK);
         Bukkit.addRecipe(NSpickrecipie);
-
     }
 
     @Override

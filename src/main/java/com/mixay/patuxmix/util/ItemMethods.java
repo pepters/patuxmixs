@@ -11,7 +11,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.text.MessageFormat;
 import java.util.Collections;
 
-public class itemmethods {
+public class ItemMethods {
     public static ItemStack getPickaxeStack (int radius) {
         ItemStack shovel = new ItemStack(Material.NETHERITE_SHOVEL, 1);
         shovel.lore(Collections.singletonList(Component.text(MessageFormat.format(ChatColor.translateAlternateColorCodes('&', "&fЛомает с радиусом &a{0} &fблоков"), radius))));
