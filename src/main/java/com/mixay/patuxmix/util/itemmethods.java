@@ -28,6 +28,7 @@ public class itemmethods {
         pearl.setItemMeta(newmeta);
         NBT.modify(pearl, nbt -> {
             nbt.setBoolean("patuxmix:PearlNoLoc", true);
+            nbt.setBoolean("patuxmix:tppearl", true);
         });
         return pearl;
     }

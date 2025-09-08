@@ -37,7 +37,7 @@ public class enderPearlHandler implements Listener {
                         nbt.setInteger("patuxmix:Ztploc", newloc.getBlockZ());
                         nbt.setString("patuxmix:Wtploc", newloc.getWorld().getName());
                         nbt.removeKey("patuxmix:PearlNoLoc");
-                        nbt.setBoolean("patuxmix:tppearl", true);
+                        nbt.setBoolean("patuxmix:locready", true);
                     });
                     String plore2 = ChatColor.GREEN + Integer.toString(newloc.getBlockX()) + " " + newloc.getBlockY() + " " + newloc.getBlockZ();
                     pearl.lore(Arrays.asList(Component.text(ChatColor.WHITE + "Этот жемчуг телепортирует на координаты:"), Component.text(plore2)));
@@ -53,17 +53,19 @@ public class enderPearlHandler implements Listener {
             if (e.getItem().getType() == Material.ENDER_PEARL) {
                 ItemStack pearl = e.getItem();
                 Player p = e.getPlayer();
-                boolean locinitem = NBT.get(pearl, nbt -> (Boolean) nbt.getOrDefault("tppearl", false));
-                if (locinitem) {
-                    // нбт локации есть в предмете, создаем и тпхаем
-                    Integer x = NBT.get(pearl, nbt -> (Integer) nbt.getInteger("Xtploc"));
-                    Integer y = NBT.get(pearl, nbt -> (Integer) nbt.getInteger("Ytploc"));
-                    Integer z = NBT.get(pearl, nbt -> (Integer) nbt.getInteger("Ztploc"));
-                    World w = Bukkit.getWorld((String) NBT.get(pearl, nbt -> (String) nbt.getString("Wtploc")));
-                    Location tploc = new Location(w, x, y, z);
-                    p.teleport(tploc);
-                    p.getInventory().remove(pearl);
-                    p.sendMessage(ChatColor.GREEN + "Вы были успешно телепортированы по сохраненной локации!");
+                boolean locinitem = NBT.get(pearl, nbt -> (Boolean) nbt.getOrDefault("patuxmix:locready", false));
+                if (NBT.get(pearl, nbt -> (Boolean) nbt.getOrDefault("patuxmix:tppearl", false))) {
+                    if (locinitem) {
+                        // нбт локации есть в предмете, создаем и тпхаем
+                        Integer x = NBT.get(pearl, nbt -> (Integer) nbt.getInteger("patuxmix:Xtploc"));
+                        Integer y = NBT.get(pearl, nbt -> (Integer) nbt.getInteger("patuxmix:Ytploc"));
+                        Integer z = NBT.get(pearl, nbt -> (Integer) nbt.getInteger("patuxmix:Ztploc"));
+                        World w = Bukkit.getWorld((String) NBT.get(pearl, nbt -> (String) nbt.getString("patuxmix:Wtploc")));
+                        Location tploc = new Location(w, x, y, z);
+                        p.teleport(tploc);
+                        p.getInventory().remove(pearl);
+                        p.sendMessage(ChatColor.GREEN + "Вы были успешно телепортированы по сохраненной локации!");
+                    }
                     e.setCancelled(true);
                 }
             }
