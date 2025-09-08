@@ -14,7 +14,7 @@ import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class nsBlockBreakHandler implements Listener {
-    @EventHandler
+    @EventHandler (ignoreCancelled = true)
     public void onNSBlockBreak (BlockBreakEvent e) {
         Player p = e.getPlayer();
         ItemStack breakitem = p.getInventory().getItemInMainHand();

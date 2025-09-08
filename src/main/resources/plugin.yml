@@ -6,4 +6,6 @@ depend: [NBTAPI]
 commands:
   getshovel:
     description: Get netherite shovel command
+  getpearl:
+    description: Get unique TP perl command
 

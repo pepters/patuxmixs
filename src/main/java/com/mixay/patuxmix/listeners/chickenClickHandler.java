@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 
 public class chickenClickHandler implements Listener {
     Logger logger = Bukkit.getLogger();
-    @EventHandler
+    @EventHandler (ignoreCancelled = true)
     public void onChickenClick (PlayerInteractAtEntityEvent e) {
         if (e.getRightClicked() instanceof Chicken && e.getHand().equals(EquipmentSlot.HAND)) {
             // уверены что клик на курицу и событие от главной руки

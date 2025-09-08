@@ -1,6 +1,7 @@
 package com.mixay.patuxmix;
 
 import com.mixay.patuxmix.commands.getNScommand;
+import com.mixay.patuxmix.commands.getPearlCommand;
 import com.mixay.patuxmix.listeners.*;
 import com.mixay.patuxmix.util.*;
 
@@ -17,7 +18,9 @@ public final class Patuxmix extends JavaPlugin {
         // Plugin startup logic
         Bukkit.getPluginManager().registerEvents(new chickenClickHandler(), this);
         Bukkit.getPluginManager().registerEvents(new nsBlockBreakHandler(), this);
+        Bukkit.getPluginManager().registerEvents(new enderPearlHandler(), this);
         Bukkit.getPluginCommand("getshovel").setExecutor(new getNScommand());
+        Bukkit.getPluginCommand("getpearl").setExecutor(new getPearlCommand());
 
         ShapedRecipe NSpickrecipie = new ShapedRecipe(new NamespacedKey(this, "NSpickaxer2"), itemmethods.getPickaxeStack(2));
         NSpickrecipie.shape(" N ", " S ", " S ");
