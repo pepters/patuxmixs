@@ -20,7 +20,7 @@ public class nsBlockBreakHandler implements Listener {
         ItemStack breakitem = p.getInventory().getItemInMainHand();
         if (breakitem.getType() == Material.NETHERITE_SHOVEL) {
             Block b = e.getBlock();
-            int breakradius = NBT.get(breakitem, nbt -> (Integer) nbt.getOrDefault("NSradius", 0));
+            int breakradius = NBT.get(breakitem, nbt -> (Integer) nbt.getOrDefault("patuxmix:NSradius", 0));
             if (breakradius != 0 && b.isValidTool(breakitem) && b.isPreferredTool(breakitem)) {
                 // ломаем блоки 3х3
                 Block center = e.getBlock().getRelative(BlockFace.SELF);

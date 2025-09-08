@@ -24,7 +24,7 @@ public class enderPearlHandler implements Listener {
                 ItemStack pearl = e.getItem();
                 Player p = e.getPlayer();
                 Block b = e.getClickedBlock();
-                boolean isnoloc = NBT.get(pearl, nbt -> (Boolean) nbt.hasTag("PearlNoLoc"));
+                boolean isnoloc = NBT.get(pearl, nbt -> (Boolean) nbt.hasTag("patuxmix:PearlNoLoc"));
                 if (isnoloc) {
                     // уверены что у жемчуга нет заданной локации и соответственно что он с плагина и можно записать новую
                     //e.setCancelled(true);
@@ -32,12 +32,12 @@ public class enderPearlHandler implements Listener {
                     newloc.setY(newloc.getY()+1);
                     // записываем новую локацию в нбт
                     NBT.modify(pearl, nbt -> {
-                        nbt.setInteger("Xtploc", newloc.getBlockX());
-                        nbt.setInteger("Ytploc", newloc.getBlockY());
-                        nbt.setInteger("Ztploc", newloc.getBlockZ());
-                        nbt.setString("Wtploc", newloc.getWorld().getName());
-                        nbt.removeKey("PearlNoLoc");
-                        nbt.setBoolean("tppearl", true);
+                        nbt.setInteger("patuxmix:Xtploc", newloc.getBlockX());
+                        nbt.setInteger("patuxmix:Ytploc", newloc.getBlockY());
+                        nbt.setInteger("patuxmix:Ztploc", newloc.getBlockZ());
+                        nbt.setString("patuxmix:Wtploc", newloc.getWorld().getName());
+                        nbt.removeKey("patuxmix:PearlNoLoc");
+                        nbt.setBoolean("patuxmix:tppearl", true);
                     });
                     String plore2 = ChatColor.GREEN + Integer.toString(newloc.getBlockX()) + " " + newloc.getBlockY() + " " + newloc.getBlockZ();
                     pearl.lore(Arrays.asList(Component.text(ChatColor.WHITE + "Этот жемчуг телепортирует на координаты:"), Component.text(plore2)));

@@ -16,7 +16,7 @@ public class itemmethods {
         ItemStack shovel = new ItemStack(Material.NETHERITE_SHOVEL, 1);
         shovel.lore(Collections.singletonList(Component.text(MessageFormat.format(ChatColor.translateAlternateColorCodes('&', "&fЛомает с радиусом &a{0} &fблоков"), radius))));
         NBT.modify(shovel, nbt -> {
-            nbt.setInteger("NSradius", radius);
+            nbt.setInteger("patuxmix:NSradius", radius);
         });
         return shovel;
     }
@@ -27,7 +27,7 @@ public class itemmethods {
         newmeta.displayName(LegacyComponentSerializer.legacyAmpersand().deserialize("&x&F&F&0&0&E&EУ&x&F&3&0&0&F&0м&x&E&8&0&0&F&1н&x&D&C&0&0&F&3ы&x&D&1&0&0&F&4й&x&C&5&0&0&F&6 &x&B&A&0&0&F&7ж&x&A&E&0&0&F&9е&x&A&3&0&0&F&Aм&x&9&7&0&0&F&Cч&x&8&C&0&0&F&Dу&x&8&0&0&0&F&Fг"));
         pearl.setItemMeta(newmeta);
         NBT.modify(pearl, nbt -> {
-            nbt.setBoolean("PearlNoLoc", true);
+            nbt.setBoolean("patuxmix:PearlNoLoc", true);
         });
         return pearl;
     }
