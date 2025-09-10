@@ -1,7 +1,9 @@
 package com.mixay.patuxmix.listeners;
 
+import com.mixay.patuxmix.Patuxmix;
 import com.mixay.patuxmix.util.*;
 import de.tr7zw.nbtapi.NBT;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -12,8 +14,14 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitScheduler;
 
 public class SuperShovelBlockBreakHandler implements Listener {
+    Patuxmix plugin;
+    public SuperShovelBlockBreakHandler (Patuxmix pl) {
+        this.plugin = pl;
+    }
+
     @EventHandler (ignoreCancelled = true)
     public void onNSBlockBreak (BlockBreakEvent e) {
         Player p = e.getPlayer();
