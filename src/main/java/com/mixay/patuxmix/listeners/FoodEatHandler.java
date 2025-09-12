@@ -17,7 +17,7 @@ public class FoodEatHandler implements Listener {
                 // знаем что предмет - еда
                 int rndeffect = ThreadLocalRandom.current().nextInt(PotionEffectType.values().length);
                 Player p = e.getPlayer();
-                p.addPotionEffect(new PotionEffect(PotionEffectType.values()[rndeffect], ThreadLocalRandom.current().nextInt(5, 21)*20, ThreadLocalRandom.current().nextInt(1, 3)));
+                p.addPotionEffect(new PotionEffect(PotionEffectType.values()[rndeffect], ThreadLocalRandom.current().nextInt(5, 21)*20, ThreadLocalRandom.current().nextInt(1, 4)));
                 p.sendMessage(ChatColor.LIGHT_PURPLE + "Ого, вместе с едой вы получили еще что-то");
         }
     }

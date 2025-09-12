@@ -71,9 +71,9 @@ public class EnderPearlHandler implements Listener {
                         Integer z = NBT.get(pearl, nbt -> (Integer) nbt.getInteger("patuxmix:Ztploc"));
                         World w = Bukkit.getWorld((String) NBT.get(pearl, nbt -> (String) nbt.getString("patuxmix:Wtploc")));
                         Location tploc = new Location(w, x, y, z);
-                        double distance;
+                        int distance;
                         try {
-                            distance = tploc.distance(p.getLocation());
+                            distance = (int) Math.round(tploc.distance(p.getLocation()));
                             if (distance <= config.getInt("smart-pearl.maxdistance")) {
                                 p.teleport(tploc);
                                 p.getInventory().remove(pearl);
